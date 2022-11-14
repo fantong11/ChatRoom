@@ -10,21 +10,20 @@ using System.Windows.Forms;
 
 namespace ChatRoom
 {
-    public partial class Form1 : Form
+    public partial class Welcome : Form
     {
-        public Form1()
+        public Welcome()
         {
             InitializeComponent();
         }
 
-        private void chatBubble1_Load(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            rich
+
         }
 
-        private void typingBox1_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
