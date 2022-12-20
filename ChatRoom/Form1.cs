@@ -19,7 +19,7 @@ namespace ChatRoom
 
         private void chatBubble1_Load(object sender, EventArgs e)
         {
-            rich
+            
         }
 
         private void typingBox1_Load(object sender, EventArgs e)
