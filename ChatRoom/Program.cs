@@ -14,10 +14,8 @@ namespace ChatRoom
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Welcome());
-            Application.Run(new Form1());
+            ChatRoomClient client = new ChatRoomClient("ws://localhost:3030");
+            Application.Run(new WelcomeForm(client));
         }
     }
 }

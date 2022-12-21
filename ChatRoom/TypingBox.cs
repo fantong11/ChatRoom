@@ -11,7 +11,7 @@ using System.ComponentModel.Design;
 
 namespace ChatRoom
 {
-    public partial class TypingBox : UserControl
+    public partial class TypingBox : System.Windows.Forms.UserControl
     {
         public TypingBox()
         {

@@ -28,48 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.userNameBox = new System.Windows.Forms.RichTextBox();
+            this.AvatarPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.AvatarPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // userNameBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(45, 44);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.userNameBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.userNameBox.Enabled = false;
+            this.userNameBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.userNameBox.Location = new System.Drawing.Point(66, 3);
+            this.userNameBox.Name = "userNameBox";
+            this.userNameBox.Size = new System.Drawing.Size(87, 32);
+            this.userNameBox.TabIndex = 0;
+            this.userNameBox.Text = "哈囉";
             // 
-            // richTextBox1
+            // AvatarPictureBox
             // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.Info;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.richTextBox1.Location = new System.Drawing.Point(54, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(92, 27);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "  Man";
+            this.AvatarPictureBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.AvatarPictureBox.Location = new System.Drawing.Point(3, 3);
+            this.AvatarPictureBox.Name = "AvatarPictureBox";
+            this.AvatarPictureBox.Size = new System.Drawing.Size(57, 57);
+            this.AvatarPictureBox.TabIndex = 1;
+            this.AvatarPictureBox.TabStop = false;
             // 
             // OnlineUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.pictureBox1);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Controls.Add(this.AvatarPictureBox);
+            this.Controls.Add(this.userNameBox);
             this.Name = "OnlineUser";
-            this.Size = new System.Drawing.Size(159, 50);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Size = new System.Drawing.Size(159, 66);
+            this.Load += new System.EventHandler(this.OnlineUser_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.AvatarPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox userNameBox;
+        private System.Windows.Forms.PictureBox AvatarPictureBox;
     }
 }

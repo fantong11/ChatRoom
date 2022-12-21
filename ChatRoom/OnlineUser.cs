@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,9 +13,15 @@ namespace ChatRoom
 {
     public partial class OnlineUser : UserControl
     {
-        public OnlineUser()
+        
+        public OnlineUser(string username)
         {
             InitializeComponent();
+            userNameBox.Text = username;
+        }
+
+        private void OnlineUser_Load(object sender, EventArgs e)
+        {
         }
     }
 }

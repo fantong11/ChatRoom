@@ -10,21 +10,13 @@ using System.Windows.Forms;
 
 namespace ChatRoom
 {
-    public partial class ChatBubble : UserControl
+    public partial class ChatBubble : System.Windows.Forms.UserControl
     {
-        public ChatBubble()
+        public ChatBubble(ReceiveData data)
         {
             InitializeComponent();
-        }
-
-        private void ChatBubble_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            
+            userRichTextBox.Text = data.username;
+            chatRichTextBox.Text = data.message;
         }
     }
 }

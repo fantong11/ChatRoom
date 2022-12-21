@@ -1,6 +1,6 @@
 ﻿namespace ChatRoom
 {
-    partial class Welcome
+    partial class WelcomeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.enterChatButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.userNameTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -42,22 +42,25 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.enterChatButton);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.userNameTextBox);
             this.panel2.Location = new System.Drawing.Point(21, 149);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(596, 82);
             this.panel2.TabIndex = 1;
             // 
-            // textBox1
+            // enterChatButton
             // 
-            this.textBox1.Font = new System.Drawing.Font("新細明體", 18F);
-            this.textBox1.Location = new System.Drawing.Point(166, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(219, 36);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.enterChatButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.enterChatButton.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.enterChatButton.Location = new System.Drawing.Point(449, 30);
+            this.enterChatButton.Name = "enterChatButton";
+            this.enterChatButton.Size = new System.Drawing.Size(105, 29);
+            this.enterChatButton.TabIndex = 2;
+            this.enterChatButton.Text = "進入聊天";
+            this.enterChatButton.UseVisualStyleBackColor = true;
+            this.enterChatButton.Click += new System.EventHandler(this.enterChatButton_Click);
             // 
             // label1
             // 
@@ -69,17 +72,13 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "使用者名稱";
             // 
-            // button1
+            // userNameTextBox
             // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button1.Location = new System.Drawing.Point(449, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 29);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "進入聊天";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.userNameTextBox.Font = new System.Drawing.Font("新細明體", 18F);
+            this.userNameTextBox.Location = new System.Drawing.Point(166, 23);
+            this.userNameTextBox.Name = "userNameTextBox";
+            this.userNameTextBox.Size = new System.Drawing.Size(219, 36);
+            this.userNameTextBox.TabIndex = 0;
             // 
             // flowLayoutPanel1
             // 
@@ -134,12 +133,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        public System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.TextBox userNameTextBox;
+        public System.Windows.Forms.Button enterChatButton;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
