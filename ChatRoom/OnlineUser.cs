@@ -8,16 +8,17 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace ChatRoom
 {
     public partial class OnlineUser : UserControl
     {
         
-        public OnlineUser(string username)
+        public OnlineUser(User user)
         {
             InitializeComponent();
-            userNameBox.Text = username;
+            userNameBox.Text = user.name;
         }
 
         private void OnlineUser_Load(object sender, EventArgs e)

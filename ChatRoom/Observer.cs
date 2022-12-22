@@ -9,5 +9,6 @@ namespace ChatRoom
     public abstract class Observer
     {
         public abstract void Update(ReceiveData message);
+        public abstract void UpdateUsers(List<User> usersList);
     }
 }

@@ -25,7 +25,7 @@ namespace ChatRoom
 
         private void ChatRoomForm_Load(object sender, EventArgs e)
         {
-            this.controller.AddUser();
+            
         }
 
         private void sendButton_Click(object sender, EventArgs e)

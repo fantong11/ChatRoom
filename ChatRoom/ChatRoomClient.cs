@@ -52,10 +52,23 @@ namespace ChatRoom
 
         public void OnMessage(object sender, MessageEventArgs e)
         {
+            Console.WriteLine(e.Data);
             ReceiveData buffer = JsonSerializer.Deserialize<ReceiveData>(e.Data);
-            Console.WriteLine(buffer.username);
-            Console.WriteLine(buffer.message);
-            subject.Notify(buffer);
+            
+            switch (buffer.command) 
+            {
+                case 3:
+                    subject.Notify(buffer);
+                    break;
+                case 6:
+                    Console.WriteLine(buffer.users);
+                    List<User> usersList = JsonSerializer.Deserialize<List<User>>(buffer.users);
+                    subject.UpdateUsers(usersList);
+                    break;
+                default:
+                    Console.WriteLine(buffer.command);
+                    break;
+            }
         }
 
         public void OnClose(object sender, EventArgs e)

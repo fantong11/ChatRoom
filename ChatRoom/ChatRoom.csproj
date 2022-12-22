@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="ChatRoomClient.cs" />
     <Compile Include="ChatRoomController.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="WelcomeFormController.cs" />

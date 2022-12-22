@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -27,19 +28,26 @@ namespace ChatRoom
             chatRoomForm.MeRichTextBox.Text = chatRoomClient.GetUsername();
         }
 
-        public async override void Update(ReceiveData data)
+        public override void Update(ReceiveData data)
         {
-            Console.WriteLine(data.message);
-            //this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
             this.chatRoomForm.Invoke((MethodInvoker)delegate
             {
                 this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
             });
         }
 
-        public void AddUser()
+        public override void UpdateUsers(List<User> usersList)
         {
-            this.chatRoomForm.personalFlowLayoutPanel.Controls.Add(new OnlineUser("test"));
+            this.chatRoomForm.Invoke((MethodInvoker)delegate
+            {
+                this.chatRoomForm.usersListFlowLayoutPanel.Controls.Clear();
+                
+                foreach (User user in usersList)
+                {
+                    this.chatRoomForm.usersListFlowLayoutPanel.Controls.Add(new OnlineUser(user));
+                }
+            });
+            
         }
 
         public void Send()

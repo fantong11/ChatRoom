@@ -31,12 +31,12 @@
             this.TypePanel = new System.Windows.Forms.Panel();
             this.chatRichTextBox = new System.Windows.Forms.RichTextBox();
             this.sendButton = new System.Windows.Forms.Button();
-            this.personalFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.usersListFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.chatFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.userFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.roomFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.MePanel = new System.Windows.Forms.Panel();
-            this.MeRichTextBox = new System.Windows.Forms.RichTextBox();
             this.MePictureBox = new System.Windows.Forms.PictureBox();
+            this.MeRichTextBox = new System.Windows.Forms.RichTextBox();
             this.TypePanel.SuspendLayout();
             this.MePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MePictureBox)).BeginInit();
@@ -72,16 +72,16 @@
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
-            // personalFlowLayoutPanel
+            // usersListFlowLayoutPanel
             // 
-            this.personalFlowLayoutPanel.AutoScroll = true;
-            this.personalFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.personalFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.personalFlowLayoutPanel.Location = new System.Drawing.Point(12, 10);
-            this.personalFlowLayoutPanel.Name = "personalFlowLayoutPanel";
-            this.personalFlowLayoutPanel.Size = new System.Drawing.Size(172, 600);
-            this.personalFlowLayoutPanel.TabIndex = 3;
-            this.personalFlowLayoutPanel.WrapContents = false;
+            this.usersListFlowLayoutPanel.AutoScroll = true;
+            this.usersListFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.usersListFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.usersListFlowLayoutPanel.Location = new System.Drawing.Point(12, 10);
+            this.usersListFlowLayoutPanel.Name = "usersListFlowLayoutPanel";
+            this.usersListFlowLayoutPanel.Size = new System.Drawing.Size(172, 600);
+            this.usersListFlowLayoutPanel.TabIndex = 3;
+            this.usersListFlowLayoutPanel.WrapContents = false;
             // 
             // chatFlowLayoutPanel
             // 
@@ -94,16 +94,16 @@
             this.chatFlowLayoutPanel.TabIndex = 4;
             this.chatFlowLayoutPanel.WrapContents = false;
             // 
-            // userFlowLayoutPanel
+            // roomFlowLayoutPanel
             // 
-            this.userFlowLayoutPanel.AutoScroll = true;
-            this.userFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.userFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.userFlowLayoutPanel.Location = new System.Drawing.Point(996, 84);
-            this.userFlowLayoutPanel.Name = "userFlowLayoutPanel";
-            this.userFlowLayoutPanel.Size = new System.Drawing.Size(176, 526);
-            this.userFlowLayoutPanel.TabIndex = 5;
-            this.userFlowLayoutPanel.WrapContents = false;
+            this.roomFlowLayoutPanel.AutoScroll = true;
+            this.roomFlowLayoutPanel.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.roomFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.roomFlowLayoutPanel.Location = new System.Drawing.Point(996, 84);
+            this.roomFlowLayoutPanel.Name = "roomFlowLayoutPanel";
+            this.roomFlowLayoutPanel.Size = new System.Drawing.Size(176, 526);
+            this.roomFlowLayoutPanel.TabIndex = 5;
+            this.roomFlowLayoutPanel.WrapContents = false;
             // 
             // MePanel
             // 
@@ -115,6 +115,15 @@
             this.MePanel.Size = new System.Drawing.Size(176, 68);
             this.MePanel.TabIndex = 6;
             // 
+            // MePictureBox
+            // 
+            this.MePictureBox.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.MePictureBox.Location = new System.Drawing.Point(10, 8);
+            this.MePictureBox.Name = "MePictureBox";
+            this.MePictureBox.Size = new System.Drawing.Size(49, 46);
+            this.MePictureBox.TabIndex = 2;
+            this.MePictureBox.TabStop = false;
+            // 
             // MeRichTextBox
             // 
             this.MeRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -125,22 +134,13 @@
             this.MeRichTextBox.TabIndex = 1;
             this.MeRichTextBox.Text = "";
             // 
-            // MePictureBox
-            // 
-            this.MePictureBox.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.MePictureBox.Location = new System.Drawing.Point(10, 8);
-            this.MePictureBox.Name = "MePictureBox";
-            this.MePictureBox.Size = new System.Drawing.Size(49, 46);
-            this.MePictureBox.TabIndex = 2;
-            this.MePictureBox.TabStop = false;
-            // 
             // ChatRoomForm
             // 
             this.ClientSize = new System.Drawing.Size(1184, 621);
             this.Controls.Add(this.MePanel);
-            this.Controls.Add(this.userFlowLayoutPanel);
+            this.Controls.Add(this.roomFlowLayoutPanel);
             this.Controls.Add(this.chatFlowLayoutPanel);
-            this.Controls.Add(this.personalFlowLayoutPanel);
+            this.Controls.Add(this.usersListFlowLayoutPanel);
             this.Controls.Add(this.TypePanel);
             this.Name = "ChatRoomForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatRoomForm_FormClosing);
@@ -154,9 +154,9 @@
 
         #endregion
         public System.Windows.Forms.Panel TypePanel;
-        public System.Windows.Forms.FlowLayoutPanel personalFlowLayoutPanel;
+        public System.Windows.Forms.FlowLayoutPanel usersListFlowLayoutPanel;
         public System.Windows.Forms.FlowLayoutPanel chatFlowLayoutPanel;
-        public System.Windows.Forms.FlowLayoutPanel userFlowLayoutPanel;
+        public System.Windows.Forms.FlowLayoutPanel roomFlowLayoutPanel;
         public System.Windows.Forms.RichTextBox chatRichTextBox;
         public System.Windows.Forms.Button sendButton;
         public System.Windows.Forms.Panel MePanel;

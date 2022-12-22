@@ -24,5 +24,12 @@ namespace ChatRoom
                 observer.Update(message);
             }
         }
+        public void UpdateUsers(List<User> usersList)
+        {
+            foreach (var observer in this.observers)
+            {
+                observer.UpdateUsers(usersList);
+            }
+        }
     }
 }
