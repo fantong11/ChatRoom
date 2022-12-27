@@ -28,5 +28,6 @@ namespace ChatRoom
         SendPublic,
         Connect,
         CreatePrivateRoom,
+        UpdateUserList,
     }
 }

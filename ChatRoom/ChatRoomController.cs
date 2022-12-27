@@ -36,6 +36,18 @@ namespace ChatRoom
             });
         }
 
+        public override void Update(Room room)
+        {
+            this.chatRoomForm.Invoke((MethodInvoker)delegate
+            {
+                this.chatRoomForm.chatFlowLayoutPanel.Controls.Clear();
+                foreach (ReceiveData data in room.messagesList)
+                {
+                    this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
+                }
+            });
+        }
+
         public override void UpdateUsers(List<User> usersList)
         {
             this.chatRoomForm.Invoke((MethodInvoker)delegate
@@ -65,6 +77,11 @@ namespace ChatRoom
             };
             this.chatRoomClient.Send(sendData);
             this.chatRoomForm.chatRichTextBox.Text = "";
+        }
+
+        public override void UpdateUsers(List<User> usersList, Subject subject, List<Room> rooms)
+        {
+            throw new NotImplementedException();
         }
     }
 }

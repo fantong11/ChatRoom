@@ -63,6 +63,7 @@
             this.Name = "OnlineUser";
             this.Size = new System.Drawing.Size(159, 66);
             this.Load += new System.EventHandler(this.OnlineUser_Load);
+            this.Click += new System.EventHandler(this.OnlineUser_Click);
             ((System.ComponentModel.ISupportInitialize)(this.AvatarPictureBox)).EndInit();
             this.ResumeLayout(false);
 

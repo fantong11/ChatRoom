@@ -24,11 +24,25 @@ namespace ChatRoom
                 observer.Update(message);
             }
         }
+        public void ChangeRoom(Room room)
+        {
+            foreach (var observer in this.observers)
+            {
+                observer.Update(room);
+            }
+        }
         public void UpdateUsers(List<User> usersList)
         {
             foreach (var observer in this.observers)
             {
                 observer.UpdateUsers(usersList);
+            }
+        }
+        public void UpdateUsers(List<User> userList, List<Room> rooms)
+        {
+            foreach (var observer in this.observers)
+            {
+                observer.UpdateUsers(userList, this, rooms);
             }
         }
     }

@@ -76,6 +76,8 @@
             this.Controls.Add(this.avatarPictureBox);
             this.Name = "ChatBubble";
             this.Size = new System.Drawing.Size(752, 69);
+            this.Load += new System.EventHandler(this.ChatBubble_Load);
+            this.Click += new System.EventHandler(this.ChatBubble_Click);
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
             this.ResumeLayout(false);
 

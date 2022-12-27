@@ -18,5 +18,15 @@ namespace ChatRoom
             userRichTextBox.Text = data.username;
             chatRichTextBox.Text = data.message;
         }
+
+        private void ChatBubble_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChatBubble_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

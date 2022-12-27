@@ -14,7 +14,8 @@ namespace ChatRoom
 {
     public partial class OnlineUser : UserControl
     {
-        
+        Room room;
+        Subject subject;
         public OnlineUser(User user)
         {
             InitializeComponent();
@@ -23,6 +24,11 @@ namespace ChatRoom
 
         private void OnlineUser_Load(object sender, EventArgs e)
         {
+        }
+
+        private void OnlineUser_Click(object sender, EventArgs e)
+        {
+            this.subject.ChangeRoom(room);
         }
     }
 }
