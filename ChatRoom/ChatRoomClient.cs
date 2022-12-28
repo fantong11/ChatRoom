@@ -34,6 +34,10 @@ namespace ChatRoom
         {
             this.subject = subject;
         }
+        public List<Room> GetRooms()
+        {
+            return rooms;
+        }
 
         public void Connect()
         {
@@ -60,15 +64,7 @@ namespace ChatRoom
             switch (buffer.command) 
             {
                 case 2:
-                    foreach (Room r in rooms)
-                    {
-                        if (r.roomName == buffer.username)
-                        {
-                            r.AddMessage(buffer);
-                            subject.ChangeRoom(r);
-                            break;
-                        }
-                    }
+                    Console.WriteLine("enter the case 2");
                     break;
                 case 3:
                     subject.Notify(buffer);
@@ -76,7 +72,10 @@ namespace ChatRoom
                 case 5:
                     Room room = new Room(buffer.recipientName);
                     rooms.Add(room);
-                    subject.ChangeRoom(room);
+
+                    subject.ChangeRoom(buffer.recipientName);
+                    // subject.ChangeRoom(room);
+
                     break;
                 case 6:
                     Console.WriteLine(buffer.users);
@@ -97,7 +96,6 @@ namespace ChatRoom
         public void Send(SendData sendData)
         {
             string jsonString = JsonSerializer.Serialize(sendData);
-            //Console.WriteLine(jsonString);
             this.client.Send(jsonString);
         }
 

@@ -12,5 +12,8 @@ namespace ChatRoom
         public abstract void Update(Room room);
         public abstract void UpdateUsers(List<User> usersList);
         public abstract void UpdateUsers(List<User> usersList, Subject subject, List<Room> rooms);
+        public abstract void ChangeRoom(string roomName);
+        public abstract void UpdateRoomList(List<Room> rooms, ReceiveData message);
+        public abstract void SendPrivate(List<Room> rooms, ReceiveData message);
     }
 }

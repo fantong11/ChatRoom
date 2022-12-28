@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
+// using System.Xml.Linqs;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -17,12 +17,15 @@ namespace ChatRoom
         ChatRoomClient chatRoomClient;
         ChatRoomForm chatRoomForm;
         Subject subject;
+        List<Room> rooms;
 
-        public ChatRoomController(ChatRoomForm chatRoomForm, ChatRoomClient chatRoomClient, Subject subject)
+        public ChatRoomController(ChatRoomForm chatRoomForm, ChatRoomClient chatRoomClient, Subject subject, List<Room> rooms)
         {
             this.chatRoomClient = chatRoomClient;
             this.chatRoomForm = chatRoomForm;
             this.subject = subject;
+            this.rooms = rooms;
+
             subject.Subscribe(this);
 
             chatRoomForm.MeRichTextBox.Text = chatRoomClient.GetUsername();
@@ -32,6 +35,8 @@ namespace ChatRoom
         {
             this.chatRoomForm.Invoke((MethodInvoker)delegate
             {
+                // new ChatBubble(data, subject);
+                // pass the variable "subject" to let the clicking on user call "ChangeRoom" method
                 this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
             });
         }
@@ -40,11 +45,16 @@ namespace ChatRoom
         {
             this.chatRoomForm.Invoke((MethodInvoker)delegate
             {
+                /*
                 this.chatRoomForm.chatFlowLayoutPanel.Controls.Clear();
-                foreach (ReceiveData data in room.messagesList)
+                if (room.messagesList != null)
                 {
-                    this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
+                    foreach (ReceiveData data in room.messagesList)
+                    {
+                        this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
+                    }
                 }
+                */
             });
         }
 
@@ -56,10 +66,9 @@ namespace ChatRoom
                 
                 foreach (User user in usersList)
                 {
-                    this.chatRoomForm.usersListFlowLayoutPanel.Controls.Add(new OnlineUser(user));
+                    this.chatRoomForm.usersListFlowLayoutPanel.Controls.Add(new OnlineUser(user, subject));
                 }
             });
-            
         }
 
         public void Send()
@@ -79,7 +88,58 @@ namespace ChatRoom
             this.chatRoomForm.chatRichTextBox.Text = "";
         }
 
+        public void SendPrivate()
+        {
+            SendData sendData = new SendData
+            {
+                command = CommandType.SendPrivate,
+                messageData = new MessageData
+                {
+                    username = this.chatRoomClient.GetUsername(),
+                    message = this.chatRoomForm.chatRichTextBox.Text,
+                    roomName = "2",
+                    recipientName = "2"
+                }
+            };
+            this.chatRoomClient.Send(sendData);
+            this.chatRoomForm.chatRichTextBox.Text = "";
+        }
+
         public override void UpdateUsers(List<User> usersList, Subject subject, List<Room> rooms)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ChangeRoom(string roomName)
+        {
+            this.chatRoomForm.Invoke((MethodInvoker)delegate
+            {
+                this.chatRoomForm.chatFlowLayoutPanel.Controls.Clear();
+                this.chatRoomForm.SetPrivate(true);
+
+                foreach (var room in rooms)
+                {
+                    if (roomName == room.roomName)
+                    {
+                        foreach (var data in room.messagesList)
+                        {
+                            this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
+                        }
+                    }
+                }
+            });
+        }
+
+        public override void UpdateRoomList(List<Room> rooms, ReceiveData message)
+        {
+            this.chatRoomForm.Invoke((MethodInvoker)delegate
+            {
+                Room room = new Room(message);
+                rooms.Add(room);
+            });
+        }
+
+        public override void SendPrivate(List<Room> rooms, ReceiveData message)
         {
             throw new NotImplementedException();
         }

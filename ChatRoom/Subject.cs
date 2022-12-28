@@ -24,11 +24,19 @@ namespace ChatRoom
                 observer.Update(message);
             }
         }
-        public void ChangeRoom(Room room)
+        public void Notify(List<Room> rooms, ReceiveData message)
         {
             foreach (var observer in this.observers)
             {
-                observer.Update(room);
+                observer.SendPrivate(rooms, message);
+            }
+        }
+
+        public void ChangeRoom(string roomName)
+        {
+            foreach (var observer in this.observers)
+            {
+                observer.ChangeRoom(roomName);
             }
         }
         public void UpdateUsers(List<User> usersList)
@@ -45,5 +53,14 @@ namespace ChatRoom
                 observer.UpdateUsers(userList, this, rooms);
             }
         }
+
+        public void UpdateRoomList(List<Room> rooms, ReceiveData data)
+        {
+            foreach (var observer in this.observers)
+            {
+                observer.UpdateRoomList(rooms, data);
+            }
+        }
+
     }
 }

@@ -16,10 +16,11 @@ namespace ChatRoom
     {
         Room room;
         Subject subject;
-        public OnlineUser(User user)
+        public OnlineUser(User user, Subject subject)
         {
             InitializeComponent();
             userNameBox.Text = user.name;
+            this.subject = subject;
         }
 
         private void OnlineUser_Load(object sender, EventArgs e)
@@ -28,7 +29,8 @@ namespace ChatRoom
 
         private void OnlineUser_Click(object sender, EventArgs e)
         {
-            this.subject.ChangeRoom(room);
+            // ChangeRoom will do {isPrivate = true}
+            this.subject.ChangeRoom(userNameBox.Text);
         }
     }
 }
