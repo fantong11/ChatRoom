@@ -14,7 +14,6 @@ namespace ChatRoom
 {
     public partial class OnlineUser : UserControl
     {
-        Room room;
         Subject subject;
         public OnlineUser(User user, Subject subject)
         {

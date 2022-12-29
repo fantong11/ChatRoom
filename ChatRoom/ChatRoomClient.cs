@@ -19,7 +19,7 @@ namespace ChatRoom
         public ChatRoomClient(string url)
         {
             this.client = new WebSocket(url);
-            rooms.Add(new Room("Lobby"));
+            this.rooms.Add(new Room("大廳"));
         }
 
         public void SetUsername(string username)
@@ -48,7 +48,6 @@ namespace ChatRoom
             this.client.OnClose += this.OnClose;
 
             this.client.Connect();
-
         }
 
         public void OnOpen(object sender, EventArgs e)
@@ -60,25 +59,21 @@ namespace ChatRoom
         {
             Console.WriteLine(e.Data);
             ReceiveData buffer = JsonSerializer.Deserialize<ReceiveData>(e.Data);
-            
+
             switch (buffer.command) 
             {
-                case 2:
-                    Console.WriteLine("enter the case 2");
-                    break;
-                case 3:
+                case 2: // private
                     subject.Notify(buffer);
                     break;
-                case 5:
-                    Room room = new Room(buffer.recipientName);
-                    rooms.Add(room);
-
-                    subject.ChangeRoom(buffer.recipientName);
-                    // subject.ChangeRoom(room);
-
+                case 3: // public
+                    subject.Notify(buffer);
                     break;
-                case 6:
-                    Console.WriteLine(buffer.users);
+                case 5: // (receive)create private room
+                    Room room = new Room(buffer.recipient);
+                    rooms.Add(room);
+                    //subject.ChangeRoom(buffer.recipient);
+                    break;
+                case 6: // Update user list
                     List<User> usersList = JsonSerializer.Deserialize<List<User>>(buffer.users);
                     subject.UpdateUsers(usersList);
                     break;
@@ -95,6 +90,7 @@ namespace ChatRoom
 
         public void Send(SendData sendData)
         {
+            Console.WriteLine("Websocket send");
             string jsonString = JsonSerializer.Serialize(sendData);
             this.client.Send(jsonString);
         }

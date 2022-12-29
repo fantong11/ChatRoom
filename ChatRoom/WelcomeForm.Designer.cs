@@ -115,15 +115,16 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "produce by 請輸入隊名";
             // 
-            // Welcome
+            // WelcomeForm
             // 
+            this.AcceptButton = this.enterChatButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(643, 243);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel2);
-            this.Name = "Welcome";
-            this.Text = "Form2";
+            this.Name = "WelcomeForm";
+            this.Text = "Anonymous Chat Room";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);

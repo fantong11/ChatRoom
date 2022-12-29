@@ -14,19 +14,22 @@ namespace ChatRoom
     {
         ChatRoomController controller;
         Subject subject = new Subject();
-        public bool isPrivate;
+        public string currentRoom;
 
         public ChatRoomForm(ChatRoomClient chatRoomClient)
         {
             InitializeComponent();
-            this.isPrivate = false;
+            this.currentRoom = "大廳";
+            roomNameLabel.Text = "大廳";
             chatRoomClient.SetSubject(this.subject);
-            this.controller = new ChatRoomController(this, chatRoomClient, subject, chatRoomClient.GetRooms());
+            this.controller = new ChatRoomController(this, chatRoomClient, this.subject);
+            roomFlowLayoutPanel.Controls.Add(new RoomUI("大廳", this.subject));
         }
 
-        public void SetPrivate(bool value)
+        public void SetRoom(string roomName)
         {
-            this.isPrivate = value;
+            this.currentRoom = roomName;
+            roomNameLabel.Text = roomName;
         }
 
         private void ChatRoomForm_Load(object sender, EventArgs e)
@@ -36,8 +39,8 @@ namespace ChatRoom
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            if (!this.isPrivate)
-                this.controller.Send();
+            if (this.currentRoom == "大廳")
+                this.controller.SendPublic();
             else
                 this.controller.SendPrivate();
         }
@@ -45,6 +48,14 @@ namespace ChatRoom
         private void ChatRoomForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ChatRoomForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                sendButton_Click(sender, null);
+            }
         }
     }
 }

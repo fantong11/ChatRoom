@@ -51,6 +51,7 @@
             this.chatRichTextBox.ForeColor = System.Drawing.SystemColors.Window;
             this.chatRichTextBox.Location = new System.Drawing.Point(153, 10);
             this.chatRichTextBox.Name = "chatRichTextBox";
+            this.chatRichTextBox.ReadOnly = true;
             this.chatRichTextBox.Size = new System.Drawing.Size(577, 50);
             this.chatRichTextBox.TabIndex = 1;
             this.chatRichTextBox.Text = "";
@@ -59,6 +60,7 @@
             // 
             this.userRichTextBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.userRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.userRichTextBox.Enabled = false;
             this.userRichTextBox.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.userRichTextBox.Location = new System.Drawing.Point(74, 22);
             this.userRichTextBox.Name = "userRichTextBox";

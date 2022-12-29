@@ -84,6 +84,12 @@
     <Compile Include="ChatRoomClient.cs" />
     <Compile Include="ChatRoomController.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RoomUI.Designer.cs">
+      <DependentUpon>RoomUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="Observer.cs" />
@@ -134,6 +140,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RoomUI.resx">
+      <DependentUpon>RoomUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TypingBox.resx">
       <DependentUpon>TypingBox.cs</DependentUpon>
     </EmbeddedResource>

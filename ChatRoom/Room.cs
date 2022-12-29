@@ -25,6 +25,8 @@ namespace ChatRoom
         public void AddMessage(ReceiveData data)
         {
             this.messagesList.Add(data);
+            Console.WriteLine("This data is added to message list: ");
+            Console.WriteLine(data.ToString());
         }
     }
 }

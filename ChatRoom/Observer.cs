@@ -8,12 +8,9 @@ namespace ChatRoom
 {
     public abstract class Observer
     {
-        public abstract void Update(ReceiveData message);
-        public abstract void Update(Room room);
+        public abstract void UpdateMessage(ReceiveData message);
         public abstract void UpdateUsers(List<User> usersList);
-        public abstract void UpdateUsers(List<User> usersList, Subject subject, List<Room> rooms);
         public abstract void ChangeRoom(string roomName);
-        public abstract void UpdateRoomList(List<Room> rooms, ReceiveData message);
-        public abstract void SendPrivate(List<Room> rooms, ReceiveData message);
+        public abstract void UpdateRoomList(List<Room> rooms);
     }
 }

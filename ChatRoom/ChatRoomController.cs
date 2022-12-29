@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Deployment.Application;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 // using System.Xml.Linqs;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ChatRoom
 {
@@ -18,44 +11,63 @@ namespace ChatRoom
         ChatRoomForm chatRoomForm;
         Subject subject;
         List<Room> rooms;
+        string username;
 
-        public ChatRoomController(ChatRoomForm chatRoomForm, ChatRoomClient chatRoomClient, Subject subject, List<Room> rooms)
+        public ChatRoomController(ChatRoomForm chatRoomForm, ChatRoomClient chatRoomClient, Subject subject)
         {
+            subject.Subscribe(this);
             this.chatRoomClient = chatRoomClient;
             this.chatRoomForm = chatRoomForm;
             this.subject = subject;
-            this.rooms = rooms;
-
-            subject.Subscribe(this);
-
+            this.rooms = chatRoomClient.GetRooms();
             chatRoomForm.MeRichTextBox.Text = chatRoomClient.GetUsername();
+            username = chatRoomClient.GetUsername();
         }
 
-        public override void Update(ReceiveData data)
+        public override void UpdateMessage(ReceiveData data)
         {
-            this.chatRoomForm.Invoke((MethodInvoker)delegate
+            // public
+            if (data.command == 3)
             {
-                // new ChatBubble(data, subject);
-                // pass the variable "subject" to let the clicking on user call "ChangeRoom" method
-                this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
-            });
-        }
-
-        public override void Update(Room room)
-        {
-            this.chatRoomForm.Invoke((MethodInvoker)delegate
+                FindRoom("大廳").AddMessage(data);
+            }
+            // private
+            else if (data.command == 2)
             {
-                /*
-                this.chatRoomForm.chatFlowLayoutPanel.Controls.Clear();
-                if (room.messagesList != null)
+                // by me
+                if (data.username == this.username)
                 {
-                    foreach (ReceiveData data in room.messagesList)
+                    Room room = FindRoom(data.recipient);
+                    room.AddMessage(data);
+                }
+                // by other
+                else
+                {
+                    Room room = FindRoom(data.username);
+                    if (room != null)
                     {
-                        this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
+                        room.AddMessage(data);
+                    }
+                    else
+                    {
+                        AddRoom(data.username, data);
                     }
                 }
-                */
-            });
+            }
+            UpdateMessageListUI();
+        }
+        public void AddRoom(string roomName)
+        {
+            Room room = new Room(roomName);
+            this.rooms.Add(room);
+            UpdateRoomList(this.rooms);
+        }
+        public void AddRoom(string roomName, ReceiveData data)
+        {
+            Room room = new Room(roomName);
+            this.rooms.Add(room);
+            UpdateRoomList(this.rooms);
+            room.AddMessage(data);
         }
 
         public override void UpdateUsers(List<User> usersList)
@@ -71,7 +83,7 @@ namespace ChatRoom
             });
         }
 
-        public void Send()
+        public void SendPublic()
         {
             SendData sendData = new SendData
             {
@@ -90,58 +102,93 @@ namespace ChatRoom
 
         public void SendPrivate()
         {
-            SendData sendData = new SendData
+            SendData sendData;
+            sendData = new SendData
             {
-                command = CommandType.SendPrivate,
+                command = CommandType.CreatePrivateRoom,
                 messageData = new MessageData
                 {
                     username = this.chatRoomClient.GetUsername(),
-                    message = this.chatRoomForm.chatRichTextBox.Text,
-                    roomName = "2",
-                    recipientName = "2"
+                    message = "",
+                    roomName = "",
+                    recipientName = this.chatRoomForm.currentRoom
                 }
             };
+
+            if (FindRoom(this.chatRoomForm.currentRoom) == null)
+            {
+                AddRoom(this.chatRoomForm.currentRoom);
+                Console.WriteLine("Send Create Private Room");
+                this.chatRoomClient.Send(sendData);
+            }
+            Console.WriteLine("Send Private");
+            sendData.command = CommandType.SendPrivate;
+            sendData.messageData.message = this.chatRoomForm.chatRichTextBox.Text;
             this.chatRoomClient.Send(sendData);
             this.chatRoomForm.chatRichTextBox.Text = "";
         }
 
-        public override void UpdateUsers(List<User> usersList, Subject subject, List<Room> rooms)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void ChangeRoom(string roomName)
         {
+            if (roomName == username)
+            {
+                roomName = "大廳";
+            }
+            // change the form behavior when click_send (Lobby or private)
+            this.chatRoomForm.SetRoom(roomName);
+            if (FindRoom(roomName) != null)
+            {
+                UpdateMessageListUI();
+            }
+            else
+            {
+                this.chatRoomForm.Invoke((MethodInvoker)delegate
+                {
+                    this.chatRoomForm.chatFlowLayoutPanel.Controls.Clear();
+                });
+            }
+        }
+        public Room FindRoom(string roomName)
+        {
+            foreach (Room room in this.rooms)
+            {
+                if (room.roomName == roomName)
+                {
+                    return room;
+                }
+            }
+            return null;
+        }
+        ///
+        public void UpdateMessageListUI()
+        {
+            Room room = FindRoom(this.chatRoomForm.currentRoom);
             this.chatRoomForm.Invoke((MethodInvoker)delegate
             {
                 this.chatRoomForm.chatFlowLayoutPanel.Controls.Clear();
-                this.chatRoomForm.SetPrivate(true);
-
-                foreach (var room in rooms)
+                if (room.messagesList.Count > 0)
                 {
-                    if (roomName == room.roomName)
+                    foreach (ReceiveData data in room.messagesList)
                     {
-                        foreach (var data in room.messagesList)
-                        {
-                            this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
-                        }
+                        this.chatRoomForm.chatFlowLayoutPanel.Controls.Add(new ChatBubble(data));
                     }
                 }
+                this.chatRoomForm.chatFlowLayoutPanel.VerticalScroll.Value = this.chatRoomForm.chatFlowLayoutPanel.VerticalScroll.Maximum;
+                this.chatRoomForm.chatFlowLayoutPanel.PerformLayout();
             });
         }
 
-        public override void UpdateRoomList(List<Room> rooms, ReceiveData message)
+        public override void UpdateRoomList(List<Room> rooms)
         {
+            Console.WriteLine("Update Room List");
             this.chatRoomForm.Invoke((MethodInvoker)delegate
             {
-                Room room = new Room(message);
-                rooms.Add(room);
+                this.chatRoomForm.roomFlowLayoutPanel.Controls.Clear();
+                foreach (Room room in this.rooms)
+                {
+                    this.chatRoomForm.roomFlowLayoutPanel.Controls.Add(new RoomUI(room.roomName, subject));
+                }
             });
-        }
-
-        public override void SendPrivate(List<Room> rooms, ReceiveData message)
-        {
-            throw new NotImplementedException();
         }
     }
 }
