@@ -12,8 +12,9 @@ namespace ChatRoom
         [STAThread]
         static void Main()
         {
-            DotEnv.Load();
-            var envVars = DotEnv.Read();
+            var envVars = DotEnv.Fluent()
+                .WithEnvFiles("../../../.env")
+                .Read();
 
             ChatRoomClient client = new ChatRoomClient("ws://" + envVars["PORT"]);
             Application.Run(new WelcomeForm(client));
