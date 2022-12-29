@@ -90,7 +90,6 @@ namespace ChatRoom
 
         public void Send(SendData sendData)
         {
-            Console.WriteLine("Websocket send");
             string jsonString = JsonSerializer.Serialize(sendData);
             this.client.Send(jsonString);
         }

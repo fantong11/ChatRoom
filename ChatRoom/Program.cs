@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using dotenv.net;
 
 namespace ChatRoom
 {
@@ -14,7 +12,10 @@ namespace ChatRoom
         [STAThread]
         static void Main()
         {
-            ChatRoomClient client = new ChatRoomClient("ws://localhost:3030");
+            DotEnv.Load();
+            var envVars = DotEnv.Read();
+
+            ChatRoomClient client = new ChatRoomClient("ws://" + envVars["PORT"]);
             Application.Run(new WelcomeForm(client));
         }
     }
